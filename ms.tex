@@ -1,0 +1,484 @@
+
+\documentclass[]{aastex631}
+
+%% The default is a single spaced, 10 point font, single spaced article.
+%% There are 5 other style options available via an optional argument. They
+%% can be invoked like this:
+%%
+%% \documentclass[arguments]{aastex631}
+%% 
+%% where the layout options are:
+%%
+%%  twocolumn   : two text columns, 10 point font, single spaced article.
+%%                This is the most compact and represent the final published
+%%                derived PDF copy of the accepted manuscript from the publisher
+%%  manuscript  : one text column, 12 point font, double spaced article.
+%%  preprint    : one text column, 12 point font, single spaced article.  
+%%  preprint2   : two text columns, 12 point font, single spaced article.
+%%  modern      : a stylish, single text column, 12 point font, article with
+%% 		  wider left and right margins. This uses the Daniel
+%% 		  Foreman-Mackey and David Hogg design.
+%%  RNAAS       : Supresses an abstract. Originally for RNAAS manuscripts 
+%%                but now that abstracts are required this is obsolete for
+%%                AAS Journals. Authors might need it for other reasons. DO NOT
+%%                use \begin{abstract} and \end{abstract} with this style.
+%%
+
+%% If you want to create your own macros, you can do so
+%% using \newcommand. Your macros should appear before
+%% the \begin{document} command.
+%%
+\newcommand{\vdag}{(v)^\dagger}
+\newcommand\aastex{AAS\TeX}
+\newcommand\latex{La\TeX}
+\usepackage{booktabs}
+
+%% You can add a light gray and diagonal water-mark to the first page 
+%% with this command:
+%% \watermark{text}
+%% where "text", e.g. DRAFT, is the text to appear.  If the text is 
+%% long you can control the water-mark size with:
+%% \setwatermarkfontsize{dimension}
+%% where dimension is any recognized LaTeX dimension, e.g. pt, in, etc.
+%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\graphicspath{{./}{figures/}}
+%% This is the end of the preamble.  Indicate the beginning of the
+%% manuscript itself with \begin{document}.
+
+\begin{document}
+
+\title{Rubin Observatory Pointing Algorithm and Survey Simulation}
+
+
+%% If done correctly the peer review system will be able to
+%% automatically put the author and affiliation information from the manuscript
+%% and save the corresponding author the trouble of entering it by hand.
+
+\correspondingauthor{Peter Yoachim}
+\email{yoachim@uw.edu}
+
+\author[0000-0003-2874-6464]{Peter Yoachim}
+\affiliation{Department of Astronomy and the DiRAC Institute, University of Washington, Seattle, WA 98195, USA}
+
+\author[0000-0001-5916-0031]{R. Lynne Jones}
+\affiliation{Rubin Observatory, 950 N. Cherry Ave., Tucson, AZ 85719, USA}
+\affiliation{Aerotek, Suite 150, 4321 Still Creek Dr., Burnaby, BC V5C6S, Canada}
+
+\author[0000-0002-7357-0317]{Eric H. Neilsen}
+\affiliation{Fermi National Accelerator Laboratory, P.O. Box 500, Batavia, IL 60510, USA}
+
+\author{Tiago Ribeiro}
+\affiliation{Rubin Observatory, 950 N. Cherry Ave., Tucson, AZ 85719, USA}
+
+\author[0000-0001-5250-2633]{\v{Z}eljko Ivezi\'{c}}
+\affiliation{Department of Astronomy and the DiRAC Institute, University of Washington, Seattle, WA 98195, USA}
+
+\author{and more}
+\affiliation{affilt}
+
+
+%% Note that the \and command from previous versions of AASTeX is now
+%% depreciated in this version as it is no longer necessary. AASTeX 
+%% automatically takes care of all commas and "and"s between authors names.
+
+%% AASTeX 6.31 has the new \collaboration and \nocollaboration commands to
+%% provide the collaboration status of a group of authors. These commands 
+%% can be used either before or after the list of corresponding authors. The
+%% argument for \collaboration is the collaboration identifier. Authors are
+%% encouraged to surround collaboration identifiers with ()s. The 
+%% \nocollaboration command takes no argument and exists to indicate that
+%% the nearby authors are not part of surrounding collaborations.
+
+%% Mark off the abstract in the ``abstract'' environment. 
+\begin{abstract}
+
+abstract
+
+\end{abstract}
+
+%% Keywords should appear after the \end{abstract} command. 
+%% The AAS Journals now uses Unified Astronomy Thesaurus concepts:
+%% https://astrothesaurus.org
+%% You will be asked to selected these concepts during the submission process
+%% but this old "keyword" functionality is maintained in case authors want
+%% to include these concepts in their preprints.
+\keywords{methods: observational, telescopes, surveys}
+
+%% From the front matter, we move on to the body of the paper.
+%% Sections are demarcated by \section and \subsection, respectively.
+%% Observe the use of the LaTeX \label
+%% command after the \subsection to give a symbolic KEY to the
+%% subsection for cross-referencing in a \ref command.
+%% You can use LaTeX's \ref and \label commands to keep track of
+%% cross-references to sections, equations, tables, and figures.
+%% That way, if you change the order of any elements, LaTeX will
+%% automatically renumber them.
+%%
+%% We recommend that authors also use the natbib \citep
+%% and \citet commands to identify citations.  The citations are
+%% tied to the reference list via symbolic KEYs. The KEY corresponds
+%% to the KEY in the \bibitem in the reference list below. 
+
+\section{Introduction} \label{sec:intro}
+Blah blah intro
+
+the overview paper \citet{Rubin_overview2019}
+
+xxx-Cite Eric's paper for ZTF \citep{Bellm2019} and LCOGT paper \citep{Lampoudi2015} on integer programming.
+
+There have been many recent developments using Machine Learning algorithms and Large Language Model AIs that have led many to believe a trained AI could be used to schedule observations. Unfortunately, the scale of LSST is so much larger than previous surveys it is not clear there is a data set of adequate size that could be used to train and LSST scheduling AI. There is also growing skeptisism around the feasibility of making AIs that do not "hallucinate" \citep{Hicks24}.
+
+
+
+early attempts at simulating and scheduling Rubin \citet{Delgado2014, Delgado2016SPIE}.
+
+Elahe's paper \citet{Naghib2019}, Daniel's paper \citep{Rothchild2019}
+
+Throughout this paper we adopt the LSST nomenclature of a "visit" being potentially multiple exposures at a single location while each of those exposures is refered to as a "snap". Rubin processing typically combines snaps from a visit before running things like transient detection.
+
+The latest simulation \citet{v4.3}.
+
+\section{Model Observatory}\label{sec:model_obs}
+
+To simulate the operations of Rubin Observatory, we have constructed a model of the telescope and site which can mimic the telemetry stream to the scheduling software and record the relevant metadata for completed observations. In addition, the model observatory can simulate the relevant motions of the telescope.
+
+\subsection{Kinematic Model}
+The kinematic model computes the time in takes for various motions including
+\begin{itemize}
+    \item{Azimuthal motions of the dome}
+    \item{Altitude motion of the dome mounted wind screen}
+    \item{Altitude and azimuthal motions of the telescope}
+    \item{Rotational motion of the camera}
+    \item{Filter change time}
+    \item{Telescope settle times}
+    \item{Filter change}
+    \item{Shutter motion during a visit}
+    \item{Open and closed optics loop delays}
+\end{itemize}
+
+The times for the altitude, azimuth and rotational motions are calculated using a constant acceleration value and maximum velocity (configurable for each component). A finite value for the jerk can be included based on \citet{Mu2009}, but is turned off by default as it has minimal impact on the total motion times.--xxx is this actually true? Looks like we do have jerk on for telescope motions.
+
+Figure~\ref{fig:motion_times} shows the motion times for different slews. For short slews of a few degrees, the telescope is usually the limiting factor. For longer slews, the dome or optics loops are the limiting factors. 
+
+Cable wrap is tracked for the telescope which can go -250 to 250 degrees in azimuth and the camera rotator which has limits of -90 to 90 degrees. 
+
+\begin{figure}
+    \epsscale{0.7}
+    \plotone{plots/motion_times}
+    \epsscale{1}
+    \caption{Kinematic motion times for different telescope components.  \label{fig:motion_times}}
+\end{figure}
+
+\subsection{Down times}
+
+The model observatory includes both scheduled downtime and generates random unscheduled downtime events.  
+including scheduled and unscheduled downtime. 
+Scheduled downtime events are 7 day stretches for general maintenance and 14 day stretches for mirror recoatings. The total scheduled downtime in the 10-year survey is 140 nights. 
+
+Unscheduled downtime events are simulated as 1, 3, 7, or 14 days long. For any given night, there is a 1.37\% chance of a minor event (1 night lost), 0.548\% change of an intermediate event (3 nights down), 0.137\% chance of a major event (7 nights down), and 0.0274\% chance of a catastrophic event (14 nights down). We add additional minor downtime events to year 1, with the probability of a minor event happening within a night starting at 50\% and dropping to $\sim$5\%. 
+
+Our default scheduled and unscheduled downtime realization is plotted in Figure~\ref{fig:downtimes}.
+
+\begin{figure}
+    \centering
+    \epsscale{0.7}
+    \plotone{plots/downtimes.pdf}
+    \caption{The scheduled and unscheduled downtimes included in default survey simulations. \label{fig:downtimes}}
+    \epsscale{1}
+\end{figure}
+
+\subsection{Environmental Models}
+
+
+
+Seeing, weather, sky brightness
+
+\begin{figure}
+    \centering
+    \epsscale{0.7}
+    \plotone{plots/seeing_over_time.pdf} \\
+    \plottwo{plots/cloudy_over_time.pdf}{plots/cloud_levels.pdf}
+    \epsscale{1}
+    \caption{Seeing and cloud coverage distributions used in survey simulations. }
+    \label{fig:seeing_clouds}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \epsscale{0.7}
+    \plotone{plots/hours_pernight.pdf}
+    \epsscale{1}
+    \caption{The total amount of possible time per night and the average amount of time
+after removing weather downtime. Shaded regions show scheduled downtime. Our modeled
+unscheduled downtime is not included in the plot. The year progresses from left to right in
+the plot starting on November 1, 2025. The variable length June shutdown starts around Night
+250. This general weather and maintenance schedule is the same for all simulations.}
+    \label{fig:downtime}
+\end{figure}
+
+We have three definitions of ``seeing". The full width half maximum of a star at zenith at 500 nm ($FWHM_{500}$), the geometric full width at half maximum ($FWHM_{geom}$), and the effective FWHM ($FWHM_{eff}$).
+
+\begin{equation}
+    FWHM_{geom} = 0.822 FWHM_{eff} + 0.052\arcsec
+\end{equation}
+
+Looks like we have a wavelength correction of $(\lambda_{raw}/\lambda_{filter})^{0.3}$
+
+and airmass correction of $X^{0.6}$
+
+For clouds, we assume that observations are not possible if more than 30\% of the sky is cloudy. This level is reached 26\% of the time. XXX-mention how this compares to other weather downtimes. Ugh, now I can't find that nice SOAR page that had a nice table.
+
+Sky brightness paper \citep{Yoachim2016}. 
+
+
+Run through the information the model observatory generates and passes to the decision maker.
+
+There is an additional algorithm that controls which filters are loaded at the start of each night. This is configured so that if the moon is 40\% illuminated or more the $grizy$ filters are available, otherwise the $ugriy$ filters are available.
+
+Figure~\ref{fig:conditions} shows some of the information generated by the model observatory. 
+
+% Might be enough to discuss here to break into more figures
+\begin{figure}
+    \epsscale{0.5}
+    \plotone{plots/cond_airmass.pdf}\plotone{plots/cond_seeing.pdf} \\
+    \plotone{plots/cond_selong.pdf}\plotone{plots/cond_skybright.pdf} \\
+    \plotone{plots/cond_slewtime.pdf}
+    \epsscale{1}
+    \caption{Information generated by the model observatory and passed to the observing decision algorithm. These are Mollweide projections rotated so zenith at the center of the map and east is to the left. Areas in gray are unreachable by the telescope because they are low altitude or in the zenith exclusion zone. The date is set to November 1, 2025 with the sun setting with an altitude of -12 degrees. All the maps are stored as nside=32 HEALpix arrays. }
+    \label{fig:conditions}
+\end{figure}
+
+\subsection{ToO Events}
+
+Describe the default ToO events we inject by default. Report from the ToO workshop \citep{Andreoni2022}
+
+\section{Python Objects}
+Maybe a section on how the code is organized? 
+
+\subsection{Observations}
+
+Two flavors of observation objects, normal and pre-scheduled. 
+
+Once an observations is completed, all the relevant metadata of the is filled in.
+
+\subsection{Conditions}
+
+The Conditions object is a data class that holds the current time, 
+
+\subsection{Survey}
+
+The Survey class is designed to take as input Conditions objects and information about completed observations. The Survey class computes a reward value that can be used to rank it's desirability compared to other Survey objects, and, when the reward value is finite, returns an array of desired observations.
+
+With this simple API, a Survey object can be constructed with either prescheduled observations, or contain an algorithm for generating observations dynamically.
+
+\subsection{Basis Functions}
+
+\subsection{Features}
+
+
+
+\section{Survey Modes}
+
+\subsection{Pre-Scheduled Observations}
+The LSST is planned to include several deep drilling fields. xxx--each DDF, maybe a cite for other studies of them. We plan to observe the Euclid Deep Field South (EDFS) as a pair of pointings. 
+
+First, we set a desired total number of DDF sequences, a minimum visit depth, and season length. We compute an expected nominal depth for each DDF in 15 minute intervals for the length of the expected survey. We define a desired cumulative number of observations, then schedule DDF sequences to match the desired cumulative distribution under the constraint that the depth be above some value. Each DDF is scheduled independently, and we take no special precautions to prevent collisions between DDF observations. 
+
+XXX--I think this is one potential sequence per night, and then we place it at the optimal time in the night? maybe add a plot of the desired and best fit cumulative observation count.
+
+
+% Generated in DDF_table.ipynb
+\begin{table}
+    \centering
+        \begin{tabular}{lrr}
+            \toprule
+            Short Name & RA & Dec \\
+            \midrule
+            ELAISS1 & 9.450 & -44.025 \\
+            XMM LSS & 35.575 & -4.817 \\
+            ECDFS & 52.979 & -28.117 \\
+            COSMOS & 150.108 & 2.234 \\
+            EDFS a & 58.900 & -49.320 \\
+            EDFS b & 63.600 & -47.600 \\
+            \bottomrule
+            \end{tabular}
+    \caption{Adopted locations for Deep Drilling Fields.}
+    \label{tab:ddf_loc}
+\end{table}
+
+
+\begin{figure}
+    \epsscale{0.5}
+    \plotone{plots/XMM_LSS10years.pdf}
+    \plotone{plots/XMM_LSScumulative.pdf}\\
+    \plotone{plots/XMM_LSS_0.1.pdf}
+    \plotone{plots/XMM_LSS_0.2.pdf}
+    \caption{Examples of how DDF fields are pre-scheduled. The top plot shows the expected limiting depth for the XMM-LSS field (given nominal seeing conditions) over the course of the survey. The lower plots zoom in on two observing seasons, showing how observations would be scheduled using 90\% and 80\% of the potential season length respectively, with both using the constraint that scheduled observations reach depths deeper than 23.5 mag in $g$.}
+    \label{fig:ddf_examples}
+    \epsscale{1}
+\end{figure}
+
+\subsection{Markov Decision Process}
+
+The default tesselation of the sky we employ is a (possibly) optimal solution to the covering problem based on the rotations in the icosahedral group of order 60 and determinant 1 \citep{Hardin94}.  
+
+For the majority of observations we use a modified Markov Decision Process (MDP), similar to the one initially developed in \citet{Naghib2019}.
+
+An MDP has the advantage of being able to encapsulate common astronomical observing rules of thumb into a small number of basis functions. 
+
+xxx--discuss the general basis functions that typically are used for the MDP surveys. The most commonly used basis functions are, 1) slewtime, 2) the 5$\sigma$-limiting depth (which is a function of airmass, seeing, and sky brightness), and 3) the difference between the desired survey footprint and the footprint created by completed observations.
+
+xxx--discussion of how we construct the desired footprint as a function of time. This might need a few figures. Maybe a set showing progression of the footprint through a few years. Then a set showing progression with rolling. Pointing out we have multiple bands so northern observatories should have access to the enhanced alert stream. And that we fiddle the rolling so that there are data releases with fairly uniform coverage. 
+
+Most astronomical surveys define a fixed set of fields (e.g., DES xxx-cite). Early attempts at scheduling LSST used fixed fields, but this leads to an issue of how to optimally dither pointings to fill chip and raft gaps, as well as distribute field overlap regions. 
+
+Rather than use a fixed set of specific pointings, we adopt a full-sky tesselation and then randomize the orientation of that tesselation nightly as done in \citet{Rothchild2019}. So on any given night, there are XXX potential coordinates the telescope could be pointed to, but those positions will not be reused on subsequent nights.
+
+Figure~\ref{fig:tesselation} illustrates our nightly dithering scheme. \citet{Awan2016} for discussion of dithering strategies. 
+
+\begin{figure}
+    \epsscale{0.5}
+    \plottwo{plots/hp2p_n1.pdf}{plots/hp2p_n5.pdf} \\
+    \plottwo{plots/nover_n1.pdf}{plots/nover_n5.pdf}
+    \epsscale{1}
+    \caption{Examples of how the sky tesselation is rotated on different nights. Figures show a gnomic projection of the south celectial pole for declinations below -60 degrees. In the top panels, we color HEALpixels based on which pointing they would be assigned to. Bottom panels show the overlaps between pointings. Night 1 of the survey is on the left, while night 5 is on the right. \label{fig:tesselation}}
+\end{figure}
+
+xxx--This might be a place to point out that we use truncated float comparisons throughout the code to ensure the results are repeatable cross-platform. Values are typically scaled up by $10^5$\ and then rounded to an integer before comparisons are made. By convention, basis functions and associated weights are kept around order unity.
+
+\subsection{Combined MDP and Prescheduled}
+
+We can combine the above two techniques. In order to force observations on certain time scales, we can use the MDP to observe an area of the sky, and once those observations are completed, generate new scheduled observations on the same area to be completed later. 
+
+\subsection{Target of Opportunity}
+
+There are a number of potential Target of Opportunity (ToO) events that Rubin could follow up. 
+
+
+\section{Baseline Simulation}
+
+
+\subsection{Scheduler Decision Tree}
+
+Describe the basic decision tree that gets built. Tier 1 are ToO observations. Tier 2 are Roman overlap observations. Tier 3 are Deep Drilling Field observations. Tier 4 are observations dedicated to observing time scales of several hours. Tier 5 are taking paired observations with 33 minute time gaps. Tier 6 is similar, but for 15 minute gaps. Tier 7 is earth-interior solar system objects, so sets of 4 observations taken at high airmass in twilight time.
+
+XXX--maybe a table of the different survey tiers, listing total exposure time and filters used for each.
+
+
+
+
+
+Twilight survey for inner solar system objects, similar to \citet{Ye2020}.
+
+
+
+\begin{figure}
+\epsscale{0.5}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvis_scheduler_note_like_DD_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvisits_as_function_of_Alt_Az_scheduler_note_like_DD_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/run_name_Hourglass_scheduler_note_like_DD_and_night_lt_730_HOUR_Hourglass.pdf}
+\epsscale{1}
+\caption{Distribution of deep drilling field and Roman bulge observations. \label{fig:tiers_ddf}}
+\end{figure}
+
+
+\begin{figure}
+\epsscale{0.5}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvis_scheduler_note_like_ToO_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvisits_as_function_of_Alt_Az_scheduler_note_like_ToO_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/run_name_Hourglass_scheduler_note_like_ToO_and_night_lt_730_HOUR_Hourglass.pdf}
+\plotone{plots/tiers/run_name_Hourglass_years_3-5_scheduler_note_like_ToO_and_night_gt_1095_and_night_lt_1825_HOUR_Hourglass.pdf}
+\epsscale{1}
+\caption{Distribution of ToO observations. In early years there are fewer ToOs as we assume LIGO starts a run at XXX.\label{fig:tiers_toos}}
+\end{figure}
+
+\begin{figure}
+\epsscale{0.5}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvis_scheduler_note_like_blob_long_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvisits_as_function_of_Alt_Az_scheduler_note_like_blob_long_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/run_name_Hourglass_scheduler_note_like_blob_long_and_night_lt_730_HOUR_Hourglass.pdf}
+\epsscale{1}
+\caption{Distribution of initial observations that will later be observed again to sample timescales of several hours. \label{fig:tiers_hours1}}
+\end{figure}
+
+\begin{figure}
+\epsscale{0.5}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvis_scheduler_note_like_long_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvisits_as_function_of_Alt_Az_scheduler_note_like_long_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/run_name_Hourglass_scheduler_note_like_long_and_night_lt_730_HOUR_Hourglass.pdf}
+\epsscale{1}
+\caption{Distribution of observations matching those in Figure~\ref{fig:tiers_hours1} \label{fig:tiers_hours2}}
+\end{figure}
+
+\begin{figure}
+\epsscale{0.5}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvis_scheduler_note_like_greedy_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvisits_as_function_of_Alt_Az_scheduler_note_like_greedy_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/run_name_Hourglass_scheduler_note_like_greedy_and_night_lt_730_HOUR_Hourglass.pdf}
+\epsscale{1}
+\caption{Distribution of greedy observations. These are last-resort observations when conditions and/or time constraints make all other tiers unviable. \label{fig:tiers_greedy}}
+\end{figure}
+
+
+\begin{figure}
+\epsscale{0.5}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvis_scheduler_note_like_pair_33_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvisits_as_function_of_Alt_Az_scheduler_note_like_pair_33_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/run_name_Hourglass_scheduler_note_like_pair_33_and_night_lt_730_HOUR_Hourglass.pdf}
+\epsscale{1}
+\caption{Distribution of 33 minute paired observations observations .\label{fig:tiers_pair33}}
+\end{figure}
+
+
+\begin{figure}
+\epsscale{0.5}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvis_scheduler_note_like_pair_15_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvisits_as_function_of_Alt_Az_scheduler_note_like_pair_15_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/run_name_Hourglass_scheduler_note_like_pair_15_and_night_lt_730_HOUR_Hourglass.pdf}
+\epsscale{1}
+\caption{Distribution of 15 minute paired observations observations \label{fig:tiers_pair15}}
+\end{figure}
+
+\begin{figure}
+\epsscale{0.5}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvis_scheduler_note_like_twilight_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/baseline_v4_3_1_10yrs_Nvisits_as_function_of_Alt_Az_scheduler_note_like_twilight_HEAL_SkyMap.pdf}
+\plotone{plots/tiers/run_name_Hourglass_scheduler_note_like_twilight_and_night_lt_730_HOUR_Hourglass.pdf}
+\epsscale{1}
+\caption{Distribution of twilight observations optimized for detecting earth-interior solar system objects. \label{fig:tiers_twiinner}}
+\end{figure}
+
+\section{Survey Performance}
+
+XXX--Maybe have a section here with a few of the main MAF metrics and show how the baseline survey performs.
+
+\section{Conclusions}
+
+There are concerns that LEO satellite mega-constellations could impact ground based astronomical observatories. We have not included any satellite dodging as earlier work found that even for a Gen 2 Starlink constellation with 30,000 satellites, only 0.04\% of LSST science pixels would be lost to satellite streaks \citep{Hu2022, Yoachim2025}.
+
+\software{Astropy \citep{astropy2013, astropy2018}, \\
+          Astroplan \citep{astroplan18},
+          Healpy and HEALpix\footnote{\url{http://healpix.sourceforge.net}} \citep{healpix2005, Zonca2019},
+          Numpy \citep{harris2020array}, \\
+          Matplotlib \citep{Hunter:2007},
+          Scipy \citep{2020SciPy-NMeth},
+          Pandas \citep{reback2022}, \\
+          Scikit-learn \citep{scikit-learn},
+          OpenOrb \citep{Granvik2009}, 
+          GNU Parallel \citep{Tange2023}, \\
+          rubin\_scheduler \citep{rubin_scheduler2024},
+          rubin\_sim \citep{rubin_sim2024}}
+          
+\bibliography{bibfile}{}
+\bibliographystyle{aasjournal}
+
+\begin{acknowledgments}
+This work was facilitated through the use of advanced computational, storage, and networking infrastructure provided by the Hyak supercomputer system at the University of Washington.
+
+This work used the resources of the SLAC Shared Science Data Facility (S3DF) at SLAC National Accelerator Laboratory. S3DF is a shared High-Performance Computing facility, operated by SLAC, that supports the scientific and data-intensive computing needs of all experimental facilities and programs of the SLAC National Accelerator Laboratory. SLAC is operated by Stanford University for the U.S. Department of Energy’s Office of Science.
+\end{acknowledgments}
+
+\end{document}
+
