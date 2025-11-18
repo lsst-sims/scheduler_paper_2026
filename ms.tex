@@ -288,6 +288,7 @@ First, we set a desired total number of DDF sequences, a minimum visit depth, an
 
 XXX--I think this is one potential sequence per night, and then we place it at the optimal time in the night? maybe add a plot of the desired and best fit cumulative observation count.
 
+XXX--roman observations.
 
 % Generated in DDF_table.ipynb
 \begin{table}
@@ -335,7 +336,7 @@ xxx--discussion of how we construct the desired footprint as a function of time.
 
 Most astronomical surveys define a fixed set of fields (e.g., DES xxx-cite). Early attempts at scheduling LSST used fixed fields, but this leads to an issue of how to optimally dither pointings to fill chip and raft gaps, as well as distribute field overlap regions. 
 
-Rather than use a fixed set of specific pointings, we adopt a full-sky tesselation and then randomize the orientation of that tesselation nightly as done in \citet{Rothchild2019}. So on any given night, there are XXX potential coordinates the telescope could be pointed to, but those positions will not be reused on subsequent nights.
+Rather than use a fixed set of specific pointings, we adopt a full-sky tesselation and then randomize the orientation of that tesselation nightly as first proposed in \citet{Rothchild2019}. On any given night, there are XXX potential coordinates the telescope could be pointed to, but those positions will not be reused on subsequent nights.
 
 Figure~\ref{fig:tesselation} illustrates our nightly dithering scheme. \citet{Awan2016} for discussion of dithering strategies. 
 
@@ -356,6 +357,7 @@ We can combine the above two techniques. In order to force observations on certa
 \subsection{Target of Opportunity}
 
 There are a number of potential Target of Opportunity (ToO) events that Rubin could follow up.  Workshop report \citet{andreoni2024rubin2024envisioningvera}.
+
 
 
 \section{Baseline Simulation}
@@ -390,7 +392,7 @@ Twilight survey for inner solar system objects, similar to \citet{Ye2020}.
 \plotone{plots/tiers/Count_night_Roman_nside64.pdf}
 \plotone{plots/tiers/Hourglass_Roman_900_lt_night_lt_3000.pdf}
 \epsscale{1}
-\caption{Distribution of Roman Galactic bulge observations. \label{fig:tiers_ddf}}
+\caption{Distribution of Roman Galactic bulge observations. \label{fig:tiers_roman}}
 \end{figure}
 
 
