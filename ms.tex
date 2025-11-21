@@ -313,11 +313,9 @@ XXX--roman observations.
 
 \begin{figure}
     \epsscale{0.5}
-    \plotone{plots/XMM_LSS10years.pdf}
-    \plotone{plots/XMM_LSScumulative.pdf}\\
-    \plotone{plots/XMM_LSS_0.1.pdf}
-    \plotone{plots/XMM_LSS_0.2.pdf}
-    \caption{Examples of how DDF fields are pre-scheduled. The top plot shows the expected limiting depth for the XMM-LSS field (given nominal seeing conditions) over the course of the survey. The lower plots zoom in on two observing seasons, showing how observations would be scheduled using 90\% and 80\% of the potential season length respectively, with both using the constraint that scheduled observations reach depths deeper than 23.5 mag in $g$.}
+    \plotone{plots/ddf_cumulative.pdf}
+    \plotone{plots/ddf_depth.pdf}
+    \caption{Example of our Deep Drilling Field scheduling. Here, we find the best fit schedule for distributing 60 COSMOS DDF sequences in a 225 day observing season, given the constraint that observations should be deeper than 23.5 mag in $g$. The plot on the left shows the ideal uniform cadence along with the best-fit cadence. The plot on the right shows the expected image depth for the COSMOS field over time (under the assumption of typical 0.7$\arcsec$ seeing at zenith). Red points mark times and depths when DDF sequences are scheduled.}
     \label{fig:ddf_examples}
     \epsscale{1}
 \end{figure}
@@ -332,7 +330,7 @@ An MDP has the advantage of being able to encapsulate common astronomical observ
 
 xxx--discuss the general basis functions that typically are used for the MDP surveys. The most commonly used basis functions are, 1) slewtime, 2) the 5$\sigma$-limiting depth (which is a function of airmass, seeing, and sky brightness), and 3) the difference between the desired survey footprint and the footprint created by completed observations.
 
-xxx--discussion of how we construct the desired footprint as a function of time. This might need a few figures. Maybe a set showing progression of the footprint through a few years. Then a set showing progression with rolling. Pointing out we have multiple bands so northern observatories should have access to the enhanced alert stream. And that we fiddle the rolling so that there are data releases with fairly uniform coverage. 
+xxx--discussion of how we construct the desired footprint as a function of time. This might need a few figures. Maybe a set showing progression of the footprint through a few years. Then a set showing progression with rolling. Pointing out we have multiple bands so northern observatories should have access to the enhanced alert stream. And that we fiddle the rolling so that there are data releases with fairly uniform coverage. Cite the DESC uniformity paper 
 
 Most astronomical surveys define a fixed set of fields (e.g., DES xxx-cite). Early attempts at scheduling LSST used fixed fields, but this leads to an issue of how to optimally dither pointings to fill chip and raft gaps, as well as distribute field overlap regions. 
 
